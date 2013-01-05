@@ -1,0 +1,55 @@
+extends layout-setting
+
+block setting-nav
+  li
+    a(href="/setting/profile") Profile
+  li.active
+    a(href="/setting/ssh") SSH Keys
+  li
+    a(href="/setting/notification") Notification
+
+block setting-area
+  h3 Manage your SSH Keys
+  table.table.table-striped.table-hover
+    thead
+      tr
+        th SSH Keys
+        th
+          a.btn.btn-small.pull-right#add_key_action(href="#") Add SSH Key
+    tbody
+      tr
+        td
+          span my public key 1
+          span (fingerprint)
+        td
+          a.btn.btn-small.btn-danger.pull-right Delete
+      tr
+        td
+          span my public key 2
+          span (fingerprint)
+        td
+          a.btn.btn-small.btn-danger.pull-right Delete
+
+  #add_key_box.hide
+    h3 Add an SSH Key
+    form.form-horizontal
+      .control-group
+        label.control-label Title
+        .controls
+          input.input-large(type="text", placeholder="my public key")
+      .control-group
+        label.control-label Key
+        .controls
+          textarea.sshkey-input(rows=5, placeholder="key content")
+      .control-group
+        .controls
+          button.btn.btn-success(type="submit") Add
+
+block customjs
+  script.
+   $('#add_key_action').toggle(function() {
+     $('#add_key_box').show();
+   }, function() {
+     $('#add_key_box').hide();
+   });
+

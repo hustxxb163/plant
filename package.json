@@ -1,0 +1,14 @@
+{
+  "name": "aiur",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "underscore": "*",
+    "express": "3.0.5",
+    "jade": "*",
+    "mongodb": "*"
+  }
+}

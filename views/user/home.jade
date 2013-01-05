@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+  .container-fluid
+    .row-fluid
+      .span3.content-box-left
+        .profile-box
+          .profile-brief
+            img.img-rounded.img-avatar(src="#", alt="140x140")
+            h3.realname 测试者
+            .x-lead #{uid}
+          .profile-detail
+            address
+              strong Netease, Inc.
+              .mail
+                 a(href="mailto:#{uid}@corp.netease.com") #{uid}@corp.netease.com
+              abbr(title="Phone") P:
+                | 13612341234
+              .homepage
+                 a(href="http://my.home.com") http://my.home.com
+              div Joined on 2013-01-01
+          .profile-other
+        
+      .span9.content-box-right
+        .filter-bar
+        .repos-list
+          each repo in repos
+            .repo-info
+              a.repo-name(href="/#{uid}/#{repo.name}")
+                span.x-lead
+                  strong #{repo.name}
+              .repo-description #{repo.description}
+              em.create-at.muted last updated at #{repo.updated_at}

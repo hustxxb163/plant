@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+  .container-fluid
+    .row-fluid
+      .span3.content-box-left
+        ul.nav.nav-list
+          li.nav-header
+            i.icon-user
+            |  #{common.user.uid}
+          block setting-nav
+      .span9.content-box-right
+        block setting-area

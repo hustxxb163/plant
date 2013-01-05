@@ -1,0 +1,41 @@
+extends ../layout
+
+block content
+  form.form-repo-create
+    .row-fluid
+      .span2
+        label
+          strong Owner
+        input.input-small(type="text", value="#{common.user.uid}", disabled)
+      .span10
+        .slash.pull-left /
+        .pull-left
+          label
+            strong Repository name
+          input.input-xlarge(type="text", name="reponame")
+          a(href="#", rel="tooltip", data-original-title="Default tooltip")  ?
+      .muted * Valid repository name should start with alphabet, and follow by limited number of "-", alphabet, or number characters, case-insensitive.
+      .muted * Minimum length is 4, and maximum length is 30.
+      .muted * /^[a-z][a-z0-9\-]{3,29}$/i
+      .muted * Great repository names are short and memorable.
+      br
+      label
+        strong Description
+        span.muted  (optional)
+      div
+        input.input-block-level(type="text", name="repodesc", placeholder="")
+    .split-line
+    .repo-perm
+      label.radio
+        input(type="radio", name="repo_public", value="true", checked, disabled)
+        strong Public
+        .muted Anyone can see this repository. You choose who can commit.
+      label.radio
+        input(type="radio", name="repo_public", value="false", disabled)
+        strong Private
+        .muted You choose who can see and commit to this repository.
+      p.text-warning Only 
+        strong Public
+        |  repository avariable now
+    .split-line
+    a.btn.btn-success(href="#") Create repository

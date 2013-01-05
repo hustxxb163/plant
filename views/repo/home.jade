@@ -1,0 +1,64 @@
+extends ../layout
+
+block content
+  .repo-head
+    .title-action-bar
+      .lead.pull-left
+        a(href="/#{uid}") #{uid}
+        span.divider  / 
+        a(href="/#{uid}/#{repo}")
+          strong #{repo}
+      .pull-right
+        a.btn.btn-small.action-list(href="#")
+          i.icon-star
+          |  Star
+        a.btn.btn-small.action-list(href="#")
+          i.icon-random
+          |  Fork
+      .clearfix
+    .repo-function-bar
+      .navbar.x-no-margin
+        .navbar-inner
+          ul.nav
+            li.active
+              a(href="#") Code
+            li
+              a(href="#") Pull Requests
+            li
+              a(href="#") Issues
+            li
+              a(href="#") Wiki
+            li
+              a(href="#") Status
+    .repo-status-bar.x-fillet
+      .repo-brief-desc
+        p Repository descriptions here -- 
+          a(href="/#{uid}/#{repo}#readme") Read more
+      .repo-url-box
+        a.btn.btn-small.action-list(href="#")
+          i.icon-download-alt
+          |  ZIP
+        span.input-prepend.input-append.action-list
+          button.btn.btn-small HTTP
+          button.btn.btn-small.disabled SSH
+          button.btn.btn-small GIT Read-only
+          input.input-xxlarge(type="text", style="height: 16px", value="git@nanny.netease.com:#{uid}/#{repo}.git")
+          button.btn.btn-small Copy it
+            //i.icon-book
+    .repo-nav-bar
+  .space-line
+  .repo-body
+    ul.breadcrumb.code-breadcrumb.x-lead
+      li
+        a(href="#")
+          strong #{repo}
+        span.divider /
+      li
+        a(href="#") lib
+        span.divider /
+      li.active util.js
+    .code-browser.x-fillet
+    .space-line
+    #readme.x-lead README.md
+    .readme.x-fillet
+

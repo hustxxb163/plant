@@ -1,0 +1,45 @@
+.navbar
+  .navbar-inner.navbar-static-top
+    .container
+      a.btn.btn-navbar(data-toggle="collapse", data-target=".nav-collapse")
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.brand(href="/") Aiur
+      .nav-collapse.collapse
+        ul.nav
+          li
+            a(href="/") Home
+          li
+            a(href="/blog") Blog
+          li
+            a(href="/help") Help
+          li
+            a(href="#") About us
+          li.dropdown
+            a.dropdown-toggle(href="#", data-toggle="dropdown") Dropdown
+              b.caret
+            ul.dropdown-menu
+              li
+                a(href="#") Action 1
+              li
+                a(href="#") Action 2
+              li.divider
+              li.nav-header Nav header
+              li
+                a(href="#") Action 3
+              li
+                a(href="#") Action 4
+        ul.nav.pull-right
+          if common.userLogined
+            li
+              a(href="/#{common.user.uid}")
+                i.icon-user
+                |  #{common.user.uid}
+            li
+              a(href="/new", title="Create a new repo") New repo
+            li
+              a(href="/setting/profile") Setting
+            li
+              a(href="/logout") Sign out
+

@@ -1,0 +1,42 @@
+extends layout-setting
+
+block setting-nav
+  li.active
+    a(href="/setting/profile") Profile
+  li
+    a(href="/setting/ssh") SSH Keys
+  li
+    a(href="/setting/notification") Notification
+
+block setting-area
+  h3 Profile
+  p Change your profile
+  form.form-horizontal
+    .control-group
+      label.control-label Avatar
+      .controls
+        img.img-rounded.img-avatar(src="#", alt="140x140")
+    .control-group
+      label.control-label EmpNO
+      .controls
+        input.input-large(type="text", name="empno", placeholder="EmpNO")
+    .control-group
+      label.control-label Realname
+      .controls
+        input.input-large(type="text", name="realname", placeholder="Realname")
+    .control-group
+      label.control-label Email
+      .controls
+        input.input-large(type="text", value="#{common.user.uid}@corp.netease.com", disabled)
+    .control-group
+      label.control-label Mobile
+      .controls
+        input.input-large(type="text", name="mobile", placeholder="mobile number")
+    .control-group
+      label.control-label Home Page
+      .controls
+        input.input-large(type="text", name="homepage", placeholder="http://my.home.com")
+    .control-group
+      .controls
+        button.btn.btn-success(type="submit") Save
+
