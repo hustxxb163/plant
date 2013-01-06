@@ -1,7 +1,7 @@
 extends ../layout
 
 block content
-  form.form-repo-create
+  form.form-repo-create(action="/new", method="POST")
     .row-fluid
       .span2
         label
@@ -12,8 +12,7 @@ block content
         .pull-left
           label
             strong Repository name
-          input.input-xlarge(type="text", name="reponame")
-          a(href="#", rel="tooltip", data-original-title="Default tooltip")  ?
+          input#repoName.input-xlarge(type="text", name="reponame")
       .muted * Valid repository name should start with alphabet, and follow by limited number of "-", alphabet, or number characters, case-insensitive.
       .muted * Minimum length is 4, and maximum length is 30.
       .muted * /^[a-z][a-z0-9\-]{3,29}$/i
@@ -32,10 +31,14 @@ block content
         .muted Anyone can see this repository. You choose who can commit.
       label.radio
         input(type="radio", name="repo_public", value="false", disabled)
-        strong Private
+        strong.muted Private
         .muted You choose who can see and commit to this repository.
       p.text-warning Only 
         strong Public
         |  repository avariable now
     .split-line
-    a.btn.btn-success(href="#") Create repository
+    button.btn.btn-success(type="submit") Create repository
+
+block customjs
+  script.
+    $('#repoName').focus();

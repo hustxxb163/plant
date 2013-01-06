@@ -4,19 +4,23 @@ block content
   .form-signin
     form.form-horizontal(action='/login', method='POST')
       .control-group
-        h2 Please sign in
-        if common.error
-          p.text-error #{common.error}
+        h3 Please sign in
+        if error
+          p.text-error #{error}
       .control-group
-        input.input-xlarge(type='text', name='username', placeholder='Email address'
+        input#inputFocus.input-block-level(type='text', name='username', placeholder='Corp Email Address'
           if last_name
             value="#{last_name}"
           )
       .control-group
-        input.input-xlarge(type='password', name='password', placeholder='Password')
+        input.input-block-level(type='password', name='password', placeholder='Password')
       .control-group
         label.checkbox
-          input(type='checkbox', name='remember_me')
+          input(type='checkbox', name='remember_me', disabled)
           label Remember me
+      .control-group
         button.btn.btn-large.btn-primary(type='submit') Sign in
 
+block customjs
+  script.
+    $('#inputFocus').focus();

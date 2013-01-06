@@ -54,6 +54,8 @@ app.param('uid', /^[a-z]\w{0,29}$/i);
 app.param('repo', /^[a-z][a-z0-9\-]{3,29}$/i);
 
 // URL mapping
+app.get('/blog|help|us', function(req, res){res.send('TBD...');});
+
 app.post('/login', main.login_post);
 app.get('/login', main.login);
 app.get('/logout', main.logout);
@@ -63,9 +65,14 @@ app.get('/setting/profile', util.loginRequired, setting.profile);
 app.get('/setting/ssh', util.loginRequired, setting.ssh);
 app.get('/setting/repositories', util.loginRequired, setting.repositories);
 app.get('/new', util.loginRequired, repo.create);
-app.get('/:uid', util.loginRequired, user.home);
-app.get('/:uid', util.loginRequired, user.home);
-app.get('/:uid/:repo', util.loginRequired, repo.home);
+app.post('/new', util.loginRequired, repo.create_post);
+app.get('/:uid', [util.loginRequired
+                  , util.uidRequired
+                 ], user.home);
+app.get('/:uid/:repo', [util.loginRequired
+                  , util.uidRequired
+                  , util.repoRequired
+                 ], repo.home);
 
 
 http.createServer(app).listen(app.get('port'), function(){

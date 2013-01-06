@@ -4,10 +4,10 @@ block content
   .repo-head
     .title-action-bar
       .lead.pull-left
-        a(href="/#{uid}") #{uid}
+        a(href="/#{user.uid}") #{user.uid}
         span.divider  / 
-        a(href="/#{uid}/#{repo}")
-          strong #{repo}
+        a(href="/#{user.uid}/#{repo.name}")
+          strong #{repo.name}
       .pull-right
         a.btn.btn-small.action-list(href="#")
           i.icon-star
@@ -32,8 +32,8 @@ block content
               a(href="#") Status
     .repo-status-bar.x-fillet
       .repo-brief-desc
-        p Repository descriptions here -- 
-          a(href="/#{uid}/#{repo}#readme") Read more
+        p #{repo.description} -- 
+          a(href="/#{user.uid}/#{repo.name}#readme") Read more
       .repo-url-box
         a.btn.btn-small.action-list(href="#")
           i.icon-download-alt
@@ -42,7 +42,7 @@ block content
           button.btn.btn-small HTTP
           button.btn.btn-small.disabled SSH
           button.btn.btn-small GIT Read-only
-          input.input-xxlarge(type="text", style="height: 16px", value="git@nanny.netease.com:#{uid}/#{repo}.git")
+          input.input-xxlarge(type="text", style="height: 16px", value="git@nanny.netease.com:#{user.uid}/#{repo.name}.git")
           button.btn.btn-small Copy it
             //i.icon-book
     .repo-nav-bar
@@ -51,7 +51,7 @@ block content
     ul.breadcrumb.code-breadcrumb.x-lead
       li
         a(href="#")
-          strong #{repo}
+          strong #{repo.name}
         span.divider /
       li
         a(href="#") lib

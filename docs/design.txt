@@ -1,0 +1,31 @@
+user
+{
+  _id
+  uid
+  realname
+  avatar
+  empno
+  email
+  mobile
+  homepage
+  sshkey
+  created_at
+  updated_at
+}
+
+repos
+{
+  _id
+  name
+  description
+  public
+  owner
+  collaborators [
+    {person
+     granted_at
+    },
+    {}
+  ]
+  created_at
+  updated_at
+}

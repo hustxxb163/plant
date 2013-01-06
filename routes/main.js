@@ -4,11 +4,10 @@ exports.login_post = function(req, res){
   var uid = req.body.username;
   var password = req.body.password;
   var remember_me = req.body.remember_me;
-  console.log('name='+uid+', password='+password+', remember_me='+remember_me);
 
   function respond_err(error) {
     var error = error ? error : 'Username or Password error';
-    return res.render('login', {error: error, last_name: uid});
+    return res.render('login', {common: {}, error: error, last_name: uid});
   }
 
   if (uid.length < 3 || 
@@ -23,26 +22,28 @@ exports.login_post = function(req, res){
     return respond_err();
   }
 
-  //
+  function login_success(user) {
+    // save uid into session
+    req.session.user = user
+    res.redirect('/' + user.uid);
+  }
+
+  // check user
   dbop.user_find({uid: uid}, function(err, result) {
     if (err)
       return respond_err('Service unavaiable!');
+
     if (result.length > 0) {
-      return respond_err('go to next page');
+      return login_success(result[0]);
     }
     
     // create new user
-    dbop.user_create(uid);
+    dbop.user_create(uid, function(err, result) {
+      if (err)
+        return respond_err('Service unavaiable! Cant init user');
+      return login_success(result[0]);
+    });
   });
-  
-//  var user = db.user.findOne({uid: uid})
-//  if (!user) {
-//    return res.render('login', {common: {error:'Username or Password error'}, last_name: uid});
-//  }
-
-  // save uid into session
-  req.session.user = {uid: uid}
-  res.redirect('/' + uid);
 };
 
 exports.logout = function(req, res){
@@ -51,7 +52,7 @@ exports.logout = function(req, res){
 };
 
 exports.login = function(req, res){
-  res.render('login', {common: {}, last_name: ''});
+  res.render('login', {common: {}, error: '', last_name: ''});
 };
 
 exports.index = function(req, res){

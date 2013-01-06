@@ -7,27 +7,34 @@ block content
         .profile-box
           .profile-brief
             img.img-rounded.img-avatar(src="#", alt="140x140")
-            h3.realname 测试者
-            .x-lead #{uid}
+            if user.realname
+              h3 #{user.realname}
+            else
+              h3 #{user.uid}
+            .x-lead #{user.uid}
           .profile-detail
             address
               strong Netease, Inc.
               .mail
-                 a(href="mailto:#{uid}@corp.netease.com") #{uid}@corp.netease.com
+                 a(href="mailto:#{user.uid}@corp.netease.com") #{user.uid}@corp.netease.com
               abbr(title="Phone") P:
-                | 13612341234
+              span  13612341234
               .homepage
                  a(href="http://my.home.com") http://my.home.com
-              div Joined on 2013-01-01
+              div Joined on #{user.created_at}
           .profile-other
         
       .span9.content-box-right
         .filter-bar
-        .repos-list
-          each repo in repos
-            .repo-info
-              a.repo-name(href="/#{uid}/#{repo.name}")
-                span.x-lead
-                  strong #{repo.name}
-              .repo-description #{repo.description}
-              em.create-at.muted last updated at #{repo.updated_at}
+        if repos.length
+          .repos-list
+            each repo in repos
+              .repo-info
+                a.repo-name(href="/#{user.uid}/#{repo.name}")
+                  span.x-lead
+                    strong #{repo.name}
+                .repo-description #{repo.description}
+                .ts-small.muted Last updated at #{repo.updated_at}
+        else
+          .lead You have no repositories yet
+          a.btn.btn-large(href="/new") Create a repository

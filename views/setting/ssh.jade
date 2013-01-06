@@ -40,16 +40,16 @@ block setting-area
       .control-group
         label.control-label Key
         .controls
-          textarea.sshkey-input(rows=5, placeholder="key content")
+          textarea.sshkey-input(rows=5, placeholder="ssh-rsa|ssh-dss xxxxxxxxxxx...")
       .control-group
         .controls
           button.btn.btn-success(type="submit") Add
 
 block customjs
   script.
-   $('#add_key_action').toggle(function() {
-     $('#add_key_box').show();
-   }, function() {
-     $('#add_key_box').hide();
-   });
+    $('#add_key_action').toggle(function() {
+      $('#add_key_box').show();
+    }, function() {
+      $('#add_key_box').hide();
+    });
 
