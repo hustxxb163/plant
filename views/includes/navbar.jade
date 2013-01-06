@@ -29,11 +29,11 @@
               li
                 a(href="#") Action 4
         ul.nav.pull-right
-          if common.userLogined
+          if auth_user
             li
-              a(href="/#{common.user.uid}")
+              a(href="/#{auth_user.uid}")
                 i.icon-user
-                |  #{common.user.uid}
+                |  #{auth_user.uid}
             li
               a(href="/new", title="Create a new repo") New repo
             li

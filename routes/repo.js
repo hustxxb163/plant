@@ -10,7 +10,7 @@ exports.create = function(req, res){
   res.nice_render('repo/new');
 };
 
-exports.create_post = function(req, res){
+exports.do_create = function(req, res){
   //TODO CSRF?
   var name = req.body.reponame;
   var name_regex = /^[a-z][a-z0-9\-]{3,29}$/i;
@@ -22,7 +22,7 @@ exports.create_post = function(req, res){
   if (description.length > 300)
     return res.send('description to long, (should less than 300 words)');
 
-  dbop.repo_find({name: name}, function(err, result) {
+  dbop.repo_find({name: name, owner: req.auth_user['_id']}, function(err, result) {
     if (err)
       return res.send('Service unavaiable');
 
@@ -32,13 +32,13 @@ exports.create_post = function(req, res){
     // create it
     dbop.repo_create(name,
                      description,
-                     req.auth_data.user['_id'],
+                     dbop.formatId(req.auth_user['_id']),
                      function(err, result) {
       if (err)
         return res.send('Service unavaiable');
 
       // redirect to repository main page
-      return res.redirect('/' + req.auth_data.user['uid'] + '/' + name);
+      return res.redirect('/' + req.auth_user['uid'] + '/' + name);
     });
   });
 };

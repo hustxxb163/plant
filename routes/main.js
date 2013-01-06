@@ -1,13 +1,13 @@
 var dbop = require('../lib/dbop');
 
-exports.login_post = function(req, res){
+exports.do_login = function(req, res){
   var uid = req.body.username;
   var password = req.body.password;
   var remember_me = req.body.remember_me;
 
   function respond_err(error) {
     var error = error ? error : 'Username or Password error';
-    return res.render('login', {common: {}, error: error, last_name: uid});
+    return res.render('login', {auth_user: false, error: error, last_name: uid});
   }
 
   if (uid.length < 3 || 
@@ -18,13 +18,12 @@ exports.login_post = function(req, res){
   }
   uid = uid.toLowerCase();
 
-  //
+  // hard code, just add auth code here...
   if (password != '123') {
     return respond_err();
   }
 
   function login_success(user) {
-    // save uid into session
     req.session.user = user
     res.redirect('/' + user.uid);
   }
@@ -53,10 +52,10 @@ exports.logout = function(req, res){
 };
 
 exports.login = function(req, res){
-  res.render('login', {common: {}, error: '', last_name: ''});
+  res.render('login', {auth_user: false, error: '', last_name: ''});
 };
 
 exports.index = function(req, res){
-  res.render('index', {common: {}});
+  res.render('index', {auth_user: false});
 };
 
