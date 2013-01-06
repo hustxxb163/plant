@@ -1,3 +1,5 @@
+var dbop = require('../lib/dbop');
+
 exports.login_post = function(req, res){
   var uid = req.body.username;
   var password = req.body.password;
@@ -22,6 +24,17 @@ exports.login_post = function(req, res){
   }
 
   //
+  dbop.user_find({uid: uid}, function(err, result) {
+    if (err)
+      return respond_err('Service unavaiable!');
+    if (result.length > 0) {
+      return respond_err('go to next page');
+    }
+    
+    // create new user
+    dbop.user_create(uid);
+  });
+  
 //  var user = db.user.findOne({uid: uid})
 //  if (!user) {
 //    return res.render('login', {common: {error:'Username or Password error'}, last_name: uid});
