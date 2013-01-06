@@ -16,6 +16,7 @@ exports.login_post = function(req, res){
       password.length > 60) {
     return respond_err();
   }
+  uid = uid.toLowerCase();
 
   //
   if (password != '123') {

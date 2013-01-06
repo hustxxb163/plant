@@ -9,6 +9,7 @@
     "underscore": "*",
     "express": "3.0.5",
     "jade": "*",
-    "mongodb": "*"
+    "mongodb": "*",
+    "connect-mongo": "*"
   }
 }

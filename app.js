@@ -10,8 +10,10 @@ var express = require('express')
   , setting = require('./routes/setting')
   , repo = require('./routes/repo')
   , util = require('./lib/util')
+  , conf = require('./lib/config')
   , http = require('http')
   , path = require('path');
+var MongoStore = require('connect-mongo')(express);
 
 var app = express();
 
@@ -24,7 +26,16 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
-  app.use(express.session());
+  //app.use(express.session());
+
+  app.use(express.session({
+    secret: 'no secret',
+    store: new MongoStore({
+      db: conf.store.db,
+      host: conf.store.host,
+      port: conf.store.port
+    })
+  }));
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });

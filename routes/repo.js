@@ -16,6 +16,7 @@ exports.create_post = function(req, res){
   var name_regex = /^[a-z][a-z0-9\-]{3,29}$/i;
   if (!name_regex.test(name))
     return res.send('bad repository name');
+  name = name.toLowerCase();
 
   var description = req.body.repodesc;
   if (description.length > 300)

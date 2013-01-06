@@ -16,10 +16,10 @@ user
 repos
 {
   _id
+  owner
   name
   description
   public
-  owner
   collaborators [
     {person
      granted_at
