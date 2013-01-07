@@ -1,5 +1,6 @@
 var dbop = require('../lib/dbop');
 var conf = require('../lib/config');
+var keyauth = require('../lib/keyauth');
 
 exports.profile = function(req, res) {
   res.nice_render('setting/profile');
@@ -20,23 +21,30 @@ exports.key_create = function(req, res) {
   var key_title = req.body.key_title;
   var key_content = req.body.key_content;
   if (!key_title || key_title.length > 60 ||
-      !key_content || key_content.length > 1024) {
+      !key_content || key_content.length > 2048) {
     return res.send('You should specify right Title & Key');
   }
 
-  dbop.sshkey_find({owner: req.auth_user['_id']}, function(err, result) {
+  keyauth.check(key_content, function(err, result) {
     if (err)
-      return res.send('Server Error');
+      return res.send('not a valid key');
+    var key_spec = result;
 
-    if (result.length >= conf.key_num_quota)
-      return res.send('You can add no more than 3 SSH keys');
-
-    dbop.sshkey_create(req.auth_user['_id'],
-                       key_title,
-                       key_content, function(err, result) {
+    dbop.sshkey_find({owner: req.auth_user['_id']}, function(err, result) {
       if (err)
-        return res.send('Add key Error');
-      return res.redirect('/setting/ssh');
+        return res.send('Server Error');
+
+      if (result.length >= conf.key_num_quota)
+        return res.send('You can add no more than 3 SSH keys');
+
+      dbop.sshkey_create(req.auth_user['_id'],
+                         key_title,
+                         key_content,
+                         key_spec, function(err, result) {
+        if (err)
+          return res.send('Add key Error');
+        return res.redirect('/setting/ssh');
+      });
     });
   });
 }

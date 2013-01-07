@@ -35,5 +35,6 @@ sshkeys
   owner
   title
   key
+  spec
   created_at
 }
