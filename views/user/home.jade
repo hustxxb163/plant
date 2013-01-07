@@ -21,7 +21,7 @@ block content
               span  13612341234
               .homepage
                  a(href="http://my.home.com") http://my.home.com
-              div Joined on #{user.created_at}
+              div Joined on #{filter.ts_simple(user.created_at)}
           .profile-other
         
       .span9.content-box-right
@@ -34,7 +34,7 @@ block content
                   span.x-lead
                     strong #{repo.name}
                 .repo-description #{repo.description}
-                .ts-small.muted Last updated at #{repo.updated_at}
+                .ts-small.muted Last updated at #{filter.ts_simple_time(repo.updated_at)}
         else
           .lead You have no repositories yet
           a.btn.btn-large(href="/new") Create a repository
