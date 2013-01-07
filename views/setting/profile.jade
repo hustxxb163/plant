@@ -11,19 +11,19 @@ block setting-nav
 block setting-area
   h3 Profile
   p Change your profile
-  form.form-horizontal
+  form.form-horizontal(action="/setting/profile", method="POST")
     .control-group
       label.control-label Avatar
       .controls
         img.img-rounded.img-avatar(src="#", alt="140x140")
     .control-group
-      label.control-label EmpNO
+      label.control-label Employee No.
       .controls
-        input.input-large(type="text", name="empno", placeholder="EmpNO")
+        input.input-large(type="text", name="empno", placeholder="Employee No.", value="#{auth_user.empno}")
     .control-group
       label.control-label Realname
       .controls
-        input.input-large(type="text", name="realname", placeholder="Realname")
+        input.input-large(type="text", name="realname", placeholder="Realname", value="#{auth_user.realname}")
     .control-group
       label.control-label Email
       .controls
@@ -31,11 +31,11 @@ block setting-area
     .control-group
       label.control-label Mobile
       .controls
-        input.input-large(type="text", name="mobile", placeholder="mobile number")
+        input.input-large(type="text", name="mobile", placeholder="Mobile number", value="#{auth_user.mobile}")
     .control-group
       label.control-label Home Page
       .controls
-        input.input-large(type="text", name="homepage", placeholder="http://my.home.com")
+        input.input-large(type="text", name="homepage", placeholder="http://my.home.com", value="#{auth_user.homepage}")
     .control-group
       .controls
         button.btn.btn-success(type="submit") Save

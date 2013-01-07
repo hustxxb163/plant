@@ -74,6 +74,7 @@ app.get('/logout', main.logout);
 app.get('/', main.index);
 
 app.get('/setting/profile', util.loginRequired, setting.profile);
+app.post('/setting/profile', util.loginRequired, setting.profile_post);
 app.get('/setting/ssh', util.loginRequired, setting.ssh);
 app.post('/setting/ssh', util.loginRequired, setting.key_create);
 app.post('/setting/ssh/delete/:_id', util.loginRequired, setting.key_delete);

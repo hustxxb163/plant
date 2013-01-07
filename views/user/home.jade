@@ -17,10 +17,12 @@ block content
               strong Netease, Inc.
               .mail
                  a(href="mailto:#{user.uid}@corp.netease.com") #{user.uid}@corp.netease.com
-              abbr(title="Phone") P:
-              span  13612341234
-              .homepage
-                 a(href="http://my.home.com") http://my.home.com
+              if user.mobile
+                abbr(title="Phone") P:
+                span  #{user.mobile}
+              if user.homepage
+                .homepage
+                   a(href="http://my.home.com") #{user.homepage}
               div Joined on #{filter.ts_simple(user.created_at)}
           .profile-other
         

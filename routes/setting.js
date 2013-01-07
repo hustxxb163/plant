@@ -1,9 +1,43 @@
+var util = require('../lib/util');
 var dbop = require('../lib/dbop');
 var conf = require('../lib/config');
 var keyauth = require('../lib/keyauth');
 
 exports.profile = function(req, res) {
   res.nice_render('setting/profile');
+};
+
+exports.profile_post = function(req, res) {
+  var empno = req.body.empno.toUpperCase();
+  var realname = req.body.realname;
+  var mobile = req.body.mobile;
+  var homepage = req.body.homepage;
+
+  var invalid_result = [];
+  if (!util.isEmpno(empno))
+    invalid_result.push('Employee Number is invalid');
+  if (!util.isRealname(realname))
+    invalid_result.push('Realname is invalid');
+  if (!util.isMobile(mobile))
+    invalid_result.push('Mobile is invalid');
+  if (!util.isURL(homepage))
+    invalid_result.push('Homepage is invalid');
+  if (homepage)
+    homepage = util.formatURL(homepage);
+
+  if (invalid_result.length > 0)
+    return res.send(invalid_result);
+
+  dbop.user_update(req.auth_user['_id'],
+                   {empno: empno,
+                    realname: realname,
+                    mobile: mobile,
+                    realname: realname,
+                    homepage: homepage}, function(err, result) {
+    if (err)
+      return res.send('Server error');
+    res.redirect('/setting/profile');
+  });
 };
 
 exports.ssh = function(req, res) {
