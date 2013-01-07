@@ -61,6 +61,7 @@ app.param(function(name, fn){
   }
 });
 
+app.param('_id', /^\w{24}$/);
 app.param('uid', /^[a-z]\w{0,29}$/i);
 app.param('repo', /^[a-z][a-z0-9\-]{3,29}$/i);
 
@@ -74,6 +75,8 @@ app.get('/', main.index);
 
 app.get('/setting/profile', util.loginRequired, setting.profile);
 app.get('/setting/ssh', util.loginRequired, setting.ssh);
+app.post('/setting/ssh', util.loginRequired, setting.key_create);
+app.post('/setting/ssh/delete/:_id', util.loginRequired, setting.key_delete);
 app.get('/setting/repositories', util.loginRequired, setting.repositories);
 app.get('/new', util.loginRequired, repo.create);
 app.post('/new', util.loginRequired, repo.do_create);

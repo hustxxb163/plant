@@ -8,7 +8,6 @@ user
   email
   mobile
   homepage
-  sshkey
   created_at
   updated_at
 }
@@ -28,4 +27,13 @@ repos
   ]
   created_at
   updated_at
+}
+
+sshkeys
+{
+  _id
+  owner
+  title
+  key
+  created_at
 }

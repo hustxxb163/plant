@@ -9,41 +9,52 @@ block setting-nav
     a(href="/setting/notification") Notification
 
 block setting-area
-  h3 Manage your SSH Keys
-  table.table.table-striped.table-hover
-    thead
-      tr
-        th SSH Keys
-        th
-          a.btn.btn-small.pull-right#add_key_action(href="#") Add SSH Key
-    tbody
-      tr
-        td
-          span my public key 1
-          span (fingerprint)
-        td
-          a.btn.btn-small.btn-danger.pull-right Delete
-      tr
-        td
-          span my public key 2
-          span (fingerprint)
-        td
-          a.btn.btn-small.btn-danger.pull-right Delete
+  if sshkeys.length
+    h3 Manage your SSH Keys
+    table.table.table-striped.table-hover
+      thead
+        tr
+          th SSH Keys
+          th
+            a.btn.btn-small.pull-right#add_key_action(href="#") Add SSH Key
+      tbody
+        each sshkey in sshkeys
+          tr
+            td
+              strong #{sshkey.title}
+              span.muted  (#{sshkey.key})
+              .ts-small.muted Created at #{sshkey.created_at}
+            td(style="vertical-align: middle;")
+              form(action="/setting/ssh/delete/#{sshkey._id}", method="POST")
+                button.btn.btn-small.btn-danger.pull-right(type="submit") Delete
+  else
+    .lead You have no SSH Keys
+    a.btn.btn-large#add_key_action(href="#") Add SSH Key
+    
+  .clearfix
+  p.pull-right
+    strong Need Help? 
+    span Check out the guide to 
+      a(href="https://help.github.com/articles/generating-ssh-keys", target="_blank") generating SSH Keys.
+  .clearfix
 
   #add_key_box.hide
-    h3 Add an SSH Key
-    form.form-horizontal
-      .control-group
-        label.control-label Title
-        .controls
-          input.input-large(type="text", placeholder="my public key")
-      .control-group
-        label.control-label Key
-        .controls
-          textarea.sshkey-input(rows=5, placeholder="ssh-rsa|ssh-dss xxxxxxxxxxx...")
-      .control-group
-        .controls
-          button.btn.btn-success(type="submit") Add
+    if sshkeys.length >= key_num_quota
+      .lead You can't have more than #{key_num_quota} Keys. Delete a unused key before add.
+    else
+      h3 Add an SSH Key
+      form.form-horizontal(action="/setting/ssh", method="POST")
+        .control-group
+          label.control-label Title
+          .controls
+            input.input-large(type="text", name="key_title", placeholder="my public key")
+        .control-group
+          label.control-label Key
+          .controls
+            textarea.sshkey-input(rows=5, name="key_content", placeholder="ssh-rsa|ssh-dss xxxxxxxxxxx...")
+        .control-group
+          .controls
+            button.btn.btn-success(type="submit") Add
 
 block customjs
   script.
