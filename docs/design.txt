@@ -21,10 +21,11 @@ repos
   }
   name
   description
+  state
   public
   collaborators [
-    {person
-     granted_at
+    {person: {_id, uid}
+     joined_at
     },
     {}
   ]
