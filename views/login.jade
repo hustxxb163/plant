@@ -4,7 +4,7 @@ block content
   .form-signin
     form.form-horizontal(action='/login', method='POST')
       .control-group
-        h3 Please sign in
+        h3 Please login
         if error
           p.text-error #{error}
       .control-group
@@ -19,7 +19,7 @@ block content
           input(type='checkbox', name='remember_me', disabled)
           label Remember me
       .control-group
-        button.btn.btn-large.btn-primary(type='submit') Sign in
+        button.btn.btn-large.btn-primary(type='submit') Log In
 
 block customjs
   script.

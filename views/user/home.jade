@@ -29,6 +29,7 @@ block content
       .span9.content-box-right
         .filter-bar
         if repos.length
+          .lead Repositories
           .repos-list
             each repo in repos
               .repo-info
@@ -38,5 +39,9 @@ block content
                 .repo-description #{repo.description}
                 .ts-small.muted Last updated at #{filter.ts_simple_time(repo.updated_at)}
         else
-          .lead You have no repositories yet
-          a.btn.btn-large(href="/new") Create a repository
+          if auth_user && auth_user.uid == user.uid
+              .lead You have no repositories
+              a.btn.btn-large(href="/new") Create a repository
+          else
+            .lead The lazy guy have no repositories
+

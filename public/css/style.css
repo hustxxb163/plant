@@ -24,6 +24,10 @@ body {
   margin: 0px 5px;
 }
 
+.space-span{
+  margin-left: 20px;
+}
+
 .space-line{
   margin: 20px 0px;
 }
@@ -114,11 +118,19 @@ body {
 }
 
 .x-lead {
-  margin-bottom: 5px;
   padding: 0px;
   font-size: 21px;
   font-weight: 200;
   line-height: 30px;
+}
+
+.xlead {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.state-box {
+  width: 120px;
 }
 
 .code-breadcrumb {

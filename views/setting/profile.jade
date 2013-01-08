@@ -10,33 +10,70 @@ block setting-nav
 
 block setting-area
   h3 Profile
+    span.display-box
+      a#edit_action.btn.btn-link(href="#") Edit
   p Change your profile
   form.form-horizontal(action="/setting/profile", method="POST")
-    .control-group
+    //.control-group
       label.control-label Avatar
       .controls
         img.img-rounded.img-avatar(src="#", alt="140x140")
     .control-group
       label.control-label Employee No.
       .controls
-        input.input-large(type="text", name="empno", placeholder="Employee No.", value="#{auth_user.empno}")
+        input.input-large.edit-box.hide(type="text", name="empno", placeholder="Employee No."
+          if auth_user.empno
+            value="#{auth_user.empno}"
+          | )
+        if auth_user.empno
+          .x-lead.display-box #{auth_user.empno}
     .control-group
       label.control-label Realname
       .controls
-        input.input-large(type="text", name="realname", placeholder="Realname", value="#{auth_user.realname}")
+        input.input-large.edit-box.hide(type="text", name="realname", placeholder="Realname"
+          if auth_user.realname
+            value="#{auth_user.realname}"
+          | )
+        if auth_user.realname
+          .x-lead.display-box #{auth_user.realname}
     .control-group
       label.control-label Email
       .controls
-        input.input-large(type="text", value="#{auth_user.uid}@corp.netease.com", disabled)
+        if auth_user.email
+          .x-lead #{auth_user.email}
     .control-group
       label.control-label Mobile
       .controls
-        input.input-large(type="text", name="mobile", placeholder="Mobile number", value="#{auth_user.mobile}")
+        input.input-large.edit-box.hide(type="text", name="mobile", placeholder="Mobile number"
+          if auth_user.mobile
+            value="#{auth_user.mobile}"
+          | )
+        if auth_user.mobile
+          .x-lead.display-box #{auth_user.mobile}
     .control-group
       label.control-label Home Page
       .controls
-        input.input-large(type="text", name="homepage", placeholder="http://my.home.com", value="#{auth_user.homepage}")
+        input.input-large.edit-box.hide(type="text", name="homepage", placeholder="http://my.home.com"
+          if auth_user.homepage
+            value="#{auth_user.homepage}"
+          | )
+        if auth_user.homepage
+          .x-lead.display-box #{auth_user.homepage}
     .control-group
-      .controls
+      .controls.edit-box.hide
+        a#cancel_action.btn(href="#") Cancel
+        a &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
         button.btn.btn-success(type="submit") Save
+
+block customjs
+  script.
+    $('#edit_action').click(function() {
+      console.log('hahahha');
+      $('.edit-box').show();
+      $('.display-box').hide();
+    });
+    $('#cancel_action').click(function() {
+      $('.edit-box').hide();
+      $('.display-box').show();
+    });
 

@@ -13,10 +13,10 @@ block content
           label
             strong Repository name
           input#repoName.input-xlarge(type="text", name="reponame")
-      .muted * Valid repository name should start with alphabet, and follow by limited number of "-", alphabet, or number characters, case-insensitive.
-      .muted * Minimum length is 4, and maximum length is 30.
-      .muted * /^[a-z][a-z0-9\-]{3,29}$/i
-      .muted * Great repository names are short and memorable.
+      //.muted * Valid repository name should start with alphabet, and follow by limited number of "-", alphabet, or number characters, case-insensitive.
+      //.muted * Minimum length is 4, and maximum length is 30.
+      .muted * Valid repository name matchs regex /^[a-z][a-z0-9\-]{3,29}$/i
+      .muted * Great repository names are short and memorable, eg. `body-language'
       br
       label
         strong Description

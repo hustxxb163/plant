@@ -22,7 +22,7 @@ exports.do_create = function(req, res){
   if (description.length > 300)
     return res.send('description to long, (should less than 300 words)');
 
-  dbop.repo_find({name: name, owner: req.auth_user['_id']}, function(err, result) {
+  dbop.repo_find({name: name, "owner._id": req.auth_user['_id']}, function(err, result) {
     if (err)
       return res.send('Service unavaiable');
 
@@ -32,7 +32,7 @@ exports.do_create = function(req, res){
     // create it
     dbop.repo_create(name,
                      description,
-                     dbop.formatId(req.auth_user['_id']),
+                     {_id: req.auth_user['_id'], uid: req.auth_user['uid']},
                      function(err, result) {
       if (err)
         return res.send('Service unavaiable');

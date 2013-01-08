@@ -41,7 +41,7 @@ exports.profile_post = function(req, res) {
 };
 
 exports.ssh = function(req, res) {
-  dbop.sshkey_find({owner: req.auth_user['_id']}, function(err, result) {
+  dbop.sshkey_find({"owner._id": req.auth_user['_id']}, function(err, result) {
     if (err)
       return res.send('Server Error');
 
@@ -64,14 +64,14 @@ exports.key_create = function(req, res) {
       return res.send('not a valid key');
     var key_spec = result;
 
-    dbop.sshkey_find({owner: req.auth_user['_id']}, function(err, result) {
+    dbop.sshkey_find({"owner._id": req.auth_user['_id']}, function(err, result) {
       if (err)
         return res.send('Server Error');
 
       if (result.length >= conf.key_num_quota)
         return res.send('You can add no more than 3 SSH keys');
 
-      dbop.sshkey_create(req.auth_user['_id'],
+      dbop.sshkey_create({_id: req.auth_user['_id'], uid: req.auth_user['uid']},
                          key_title,
                          key_content,
                          key_spec, function(err, result) {

@@ -15,7 +15,10 @@ user
 repos
 {
   _id
-  owner
+  owner {
+    _id
+    uid
+  }
   name
   description
   public
@@ -32,7 +35,10 @@ repos
 sshkeys
 {
   _id
-  owner
+  owner {
+    _id
+    uid
+  }
   title
   key
   spec

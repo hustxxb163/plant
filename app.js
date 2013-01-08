@@ -71,8 +71,8 @@ app.get('/blog|help|us', function(req, res){res.send('TBD...');});
 app.post('/login', main.do_login);
 app.get('/login', main.login);
 app.get('/logout', main.logout);
-app.get('/', main.index);
 
+app.get('/', util.loginPrefer, main.index);
 app.get('/setting/profile', util.loginRequired, setting.profile);
 app.post('/setting/profile', util.loginRequired, setting.profile_post);
 app.get('/setting/ssh', util.loginRequired, setting.ssh);
@@ -81,10 +81,10 @@ app.post('/setting/ssh/delete/:_id', util.loginRequired, setting.key_delete);
 app.get('/setting/repositories', util.loginRequired, setting.repositories);
 app.get('/new', util.loginRequired, repo.create);
 app.post('/new', util.loginRequired, repo.do_create);
-app.get('/:uid', [util.loginRequired
+app.get('/:uid', [util.loginPrefer
                   , util.uidRequired
                  ], user.home);
-app.get('/:uid/:repo', [util.loginRequired
+app.get('/:uid/:repo', [util.loginPrefer
                   , util.uidRequired
                   , util.repoRequired
                  ], repo.home);
