@@ -22,7 +22,7 @@ block setting-area
           tr
             td
               strong #{sshkey.title}
-              span.muted  (#{sshkey.spec}) 
+              span.muted  (#{sshkey.spec[0]} #{sshkey.spec[1]} #{sshkey.spec[2]}) 
               .ts-small.muted Created at #{filter.ts_simple_time(sshkey.created_at)}
             td(style="vertical-align: middle;")
               form(action="/setting/ssh/delete/#{sshkey._id}", method="POST")

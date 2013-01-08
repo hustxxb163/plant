@@ -18,15 +18,18 @@ block content
         .lead Recently joined peoples
         each user in users
           .profile-brief
-            a(href="/#{user.uid}")
-              if user.realname
-                .x-lead #{user.realname}
-              else
-                .x-lead #{user.uid}
-            div #{user.uid}
-            if user.homepage
-              a(href="#{user.homepage}", target="_blank") #{user.homepage}
-            .ts-small.muted Joined on #{filter.ts_simple(user.created_at)}
+            img.img-rounded.avatar-small.pull-left(src="http://img.bhs4.com/36/8/36859605bcc947c88fae1f0f7d60d018e4014e83_small.jpg")
+            .username.pull-left
+              a(href="/#{user.uid}")
+                if user.realname
+                  .x-lead #{user.realname}
+                else
+                  .x-lead #{user.uid}
+              div #{user.uid}
+              if user.homepage
+                a(href="#{user.homepage}", target="_blank") #{user.homepage}
+              .ts-small.muted Joined on #{filter.ts_simple(user.created_at)}
+            .clearfix
 
       .span3
         .lead Status of Aiur
