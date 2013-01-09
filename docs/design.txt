@@ -8,6 +8,7 @@ user
   email
   mobile
   homepage
+  state
   created_at
   updated_at
 }
