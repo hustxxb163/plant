@@ -58,11 +58,16 @@ exports.key_create = function(req, res) {
       !key_content || key_content.length > 2048) {
     return res.send('You should specify right Title & Key');
   }
+  key_content = key_content.trim();
 
   keyauth.check(key_content, function(err, result) {
     if (err)
       return res.send('not a valid key');
     var key_spec = result;
+    var key_len = key_spec[0];
+    if (key_len < 1024) {
+      return res.send('Error: Week Key, key length should be at least 1024 Bit. 2048 is recommanded.');
+    }
 
     dbop.sshkey_find({"owner._id": req.auth_user['_id']}, function(err, result) {
       if (err)
@@ -77,6 +82,8 @@ exports.key_create = function(req, res) {
                          key_spec, function(err, result) {
         if (err)
           return res.send('Add key Error');
+
+        keyauth.store_key(result[0]._id.toString(), key_content);
         return res.redirect('/setting/ssh');
       });
     });
