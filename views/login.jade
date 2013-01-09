@@ -8,10 +8,11 @@ block content
         if error
           p.text-error #{error}
       .control-group
-        input#inputFocus.input-block-level(type='text', name='username', placeholder='Corp Email Address'
+        input#inputFocus.input-medium(type='text', name='username', placeholder='Corp Email'
           if last_name
             value="#{last_name}"
           )
+        |  @corp.netease.com
       .control-group
         input.input-block-level(type='password', name='password', placeholder='Password is 123')
       .control-group
