@@ -33,7 +33,7 @@ block content
           .repos-list
             each repo in repos
               .repo-info
-                a.repo-name(href="/#{user.uid}/#{repo.name}")
+                a.repo-name(href="#{filter.repo_home(repo)}")
                   span.x-lead
                     strong #{repo.name}
                 .repo-description #{repo.description}
