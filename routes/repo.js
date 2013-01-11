@@ -63,18 +63,60 @@ exports.setting = function(req, res) {
   return res.redirect(util.gen_repo_home(repo) + '/collaborators');
 };
 
-exports.setting_options = function(req, res) {
+exports.options = function(req, res) {
   var user = req.clean_data.user;
   var repo = req.clean_data.repo;
   var data = {user: user, repo: repo};
   return res.nice_render('repo/setting_options', data);
 };
 
-exports.setting_collaborators = function(req, res) {
+exports.collaborators = function(req, res) {
   var user = req.clean_data.user;
   var repo = req.clean_data.repo;
   var data = {user: user, repo: repo};
   return res.nice_render('repo/setting_collaborators', data);
+};
+
+exports.add_collaborator = function(req, res) {
+  var repo = req.clean_data.repo;
+  var dev_name = req.body.dev_name.toLowerCase();
+  if (dev_name == req.auth_user.uid) {
+    return res.send('Can not add you self');
+  }
+
+  dbop.user_find({uid: dev_name}, function(err, result) {
+    if (err)
+      return res.send('Server error');
+    if (result.length == 0)
+      return res.send('User not found');
+
+    if (util.hasPermission(repo, result[0])) {
+      return res.send('User is already your collaborators');
+    }
+
+    // add into collaborators
+    dbop.add_collaborator(repo._id, result[0], function(err, result) {
+      if (err)
+        return res.send('Server error');
+
+      return res.redirect(util.gen_repo_home(repo) + '/collaborators');
+    });
+  });
+};
+
+exports.del_collaborator = function(req, res) {
+  var repo = req.clean_data.repo;
+  var dev_id = req.body.dev_id;
+  if (dev_id == req.auth_user._id.toString()) {
+    return res.send('Can not delete you self');
+  }
+
+  dbop.del_collaborator(repo._id, dbop.formatId(dev_id), function(err, result) {
+    if (err)
+      return res.send('Server error');
+
+    return res.redirect(util.gen_repo_home(repo) + '/collaborators');
+  });
 };
 
 exports.git_clone = function(req, res) {

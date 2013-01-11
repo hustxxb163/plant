@@ -99,12 +99,22 @@ app.get('/:uid/:repo/options', [util.loginRequired
                               , util.uidRequired
                               , util.repoRequired
                               , util.repoOwnerRequired
-                             ], repo.setting_options);
+                             ], repo.options);
 app.get('/:uid/:repo/collaborators', [util.loginRequired
                               , util.uidRequired
                               , util.repoRequired
                               , util.repoOwnerRequired
-                             ], repo.setting_collaborators);
+                             ], repo.collaborators);
+app.post('/:uid/:repo/collaborators', [util.loginRequired
+                              , util.uidRequired
+                              , util.repoRequired
+                              , util.repoOwnerRequired
+                             ], repo.add_collaborator);
+app.post('/:uid/:repo/collaborators/delete', [util.loginRequired
+                              , util.uidRequired
+                              , util.repoRequired
+                              , util.repoOwnerRequired
+                             ], repo.del_collaborator);
 app.get('/:uid/:repo.git/:other', [util.uidRequired
                                   , util.repoRequired
                                   ], repo.git_clone);

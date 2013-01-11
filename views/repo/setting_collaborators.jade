@@ -12,8 +12,8 @@ block setting-area
     thead
       tr
         td(cols=2)
-          form.form-horizontal(action="#{filter.repo_home(repo)/collaborators", method="POST")
-            input.input(type="text", name="dev_uid", placeholder="Collaborator name")
+          form.form-horizontal(action="#{filter.repo_home(repo)}/collaborators", method="POST")
+            input.input-medium(type="text", name="dev_name", placeholder="Collaborator name")
             button.btn.btn-success(type="submit") Add
     tbody
       each c in repo.collaborators
@@ -22,5 +22,6 @@ block setting-area
             strong #{c.person.uid}
             em.muted  (Joined on #{filter.ts_simple_time(c.joined_at)})
           td
-            form(action="#{filter.repo_home(repo)}/collaborators/delete/#{c.person._id}", method="POST")
+            form(action="#{filter.repo_home(repo)}/collaborators/delete", method="POST")
+              input(type="hidden", name="dev_id", value="#{c.person._id}")
               button.btn.btn-small.btn-danger.pull-right(type="submit") Delete
