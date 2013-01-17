@@ -1,0 +1,32 @@
+extends ../layout
+
+block content
+  .repo-head
+    .title-action-bar
+      .lead.pull-left
+        a(href="/#{user.uid}") #{user.uid}
+        span.divider  / 
+        a(href="#{filter.repo_home(repo)}")
+          strong #{repo.name}
+      .pull-right
+        a.btn.btn-small.action-list(href="#")
+          i.icon-star
+          |  Star
+      .clearfix
+    .repo-function-bar
+      .navbar.x-no-margin
+        .navbar-inner
+          ul.nav
+            li.active
+              a(href="#") Code
+            li
+              a(href="#") Pull Requests
+            li
+              a(href="#") Issues
+            li
+              a(href="#") Wiki
+            li
+              a(href="#") Status
+    br
+    .lead Nothing to see here yet. Move along.
+

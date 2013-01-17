@@ -24,7 +24,8 @@ exports.do_login = function(req, res){
   }
 
   function login_success(user) {
-    req.session.user = user
+    req.session.isLogined = true;
+    req.session.user = user;
     res.redirect('/' + user.uid);
   }
 

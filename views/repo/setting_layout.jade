@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+  .repo-head
+    .title-action-bar
+      .lead.pull-left
+        a(href="/#{user.uid}") #{user.uid}
+        span.divider  / 
+        a(href="#{filter.repo_home(repo)}")
+          strong #{repo.name}
+      .clearfix
+  .container-fluid
+    .row-fluid
+      .span3.content-box-left
+        ul.nav.nav-list
+          block setting-nav
+      .span9.content-box-right
+        block setting-area
+
