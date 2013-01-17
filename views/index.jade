@@ -7,7 +7,7 @@ block content
         .lead Recently created repositories
         each repo in repos
           .profile-brief
-            a(href="/#{repo.owner.uid}/#{repo.name}")
+            a(href="#{filter.repo_home(repo)}")
               span.x-lead
                 strong #{repo.name}
             div #{repo.description} - 

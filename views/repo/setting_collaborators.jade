@@ -1,0 +1,27 @@
+extends setting_layout
+
+block setting-nav
+  li
+    a(href="#{filter.repo_home(repo)}/options") Options
+  li.active
+    a(href="#{filter.repo_home(repo)}/collaborators") Collaborators
+
+block setting-area
+  .lead Manage collaborators
+  table.table.table-striped.table-hover
+    thead
+      tr
+        td(cols=2)
+          form.form-horizontal(action="#{filter.repo_home(repo)}/collaborators", method="POST")
+            input.input-medium(type="text", name="dev_name", placeholder="Collaborator name")
+            button.btn.btn-success(type="submit") Add
+    tbody
+      each c in repo.collaborators
+        tr
+          td
+            strong #{c.person.uid}
+            em.muted  (Joined on #{filter.ts_simple_time(c.joined_at)})
+          td
+            form(action="#{filter.repo_home(repo)}/collaborators/delete", method="POST")
+              input(type="hidden", name="dev_id", value="#{c.person._id}")
+              button.btn.btn-small.btn-danger.pull-right(type="submit") Delete

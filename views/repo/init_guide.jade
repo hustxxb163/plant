@@ -12,9 +12,6 @@ block content
         a.btn.btn-small.action-list(href="#")
           i.icon-star
           |  Star
-        a.btn.btn-small.action-list(href="#")
-          i.icon-random
-          |  Fork
       .clearfix
     .repo-function-bar
       .navbar.x-no-margin
@@ -32,47 +29,50 @@ block content
               a(href="#") Status
             li
               a(href="#{filter.repo_home(repo)}/setting") Setting
-    .repo-status-bar.x-fillet
-      .repo-brief-desc
-        p #{repo.description} -- 
-          a(href="#{filter.repo_home(repo)}#readme") Read more
-      .repo-url-box
-        a.btn.btn-small.action-list(href="#")
-          i.icon-download-alt
-          |  ZIP
-        span.input-prepend.input-append.action-list
-          button#repo_url_http.btn.btn-small HTTP Read-only
-          button#repo_url_ssh.btn.btn-small(disabled) SSH
-          //-button.btn.btn-small GIT Read-only
-          input#repo_url_input.input-xmlarge(type="text", style="height: 16px", value="git@nanny.netease.com:#{repo.owner.uid}/#{repo.name}.git")
+  br
+  .repo-init-guide
+    .lead Quick setup
+    p This's a empty repository, use one of belowing guides to getting start.
+    .repo-url-box
+      span.input-prepend.input-append.action-list
+        //-button#repo_url_http.btn.btn-small HTTP Read-only
+        button#repo_url_ssh.btn.btn-small(disabled) SSH
+        //-button.btn.btn-small GIT Read-only
+        input#repo_url_input.input-xmlarge(type="text", style="height: 16px", value="git@nanny.netease.com:#{repo.owner.uid}/#{repo.name}.git")
           //-button.btn.btn-small Copy it
-    .repo-nav-bar
-  .space-line
-  .repo-body
-    ul.breadcrumb.code-breadcrumb.x-lead
-      li
-        a(href="#")
-          strong #{repo.name}
-        span.divider /
-      li
-        a(href="#") lib
-        span.divider /
-      li.active util.js
-    .code-browser.x-fillet
-    .space-line
-    #readme.x-lead README.md
-    .readme.x-fillet
+    .split-line
+    p
+      strong Create a new repository on the command line
+    pre
+      | touch README.md
+      | git init
+      | git add README.md
+      | git commit -m "first commit"
+      | git remote add origin 
+      span.repo_url_text git@nanny.netease.com:#{repo.owner.uid}/#{repo.name}.git
+      | 
+      | git push -u origin master
+    br
+    p
+      strong Push an existing repository from the command line
+    pre
+      | git remote add origin 
+      span.repo_url_text git@nanny.netease.com:#{repo.owner.uid}/#{repo.name}.git
+      | 
+      | git push -u origin master
 
 block customjs
   script.
     $("#repo_url_http").click(function() {
       console.log('hehhhh');
       $("#repo_url_input").val("http://nanny.netease.com/#{repo.owner.uid}/#{repo.name}.git");
+      $(".repo_url_text").text("http://nanny.netease.com/#{repo.owner.uid}/#{repo.name}.git");
       $("#repo_url_http").attr('disabled', true);
       $("#repo_url_ssh").attr('disabled', false);
     });
     $("#repo_url_ssh").click(function() {
       $("#repo_url_input").val("git@nanny.netease.com:#{repo.owner.uid}/#{repo.name}.git");
+      $(".repo_url_text").text("git@nanny.netease.com:#{repo.owner.uid}/#{repo.name}.git");
       $("#repo_url_http").attr('disabled', false);
       $("#repo_url_ssh").attr('disabled', true);
     });

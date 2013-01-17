@@ -159,3 +159,11 @@ body {
   font-weight: 300;
 }
 
+.repo-init-guide {
+  margin: 0 auto;
+  width: 70%;
+}
+
+.input-xmlarge {
+  width: 400px;
+}

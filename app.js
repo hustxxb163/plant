@@ -38,6 +38,7 @@ app.configure(function(){
   }));
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
+
 });
 
 app.configure('development', function(){
@@ -64,6 +65,7 @@ app.param(function(name, fn){
 app.param('_id', /^\w{24}$/);
 app.param('uid', /^[a-z]\w{0,29}$/i);
 app.param('repo', /^[a-z][a-z0-9\-]{3,29}$/i);
+app.param('other', /^.+$/i);
 
 // URL mapping
 app.get('/blog|help|us', function(req, res){res.send('TBD...');});
@@ -88,6 +90,34 @@ app.get('/:uid/:repo', [util.loginPrefer
                   , util.uidRequired
                   , util.repoRequired
                  ], repo.home);
+app.get('/:uid/:repo/setting', [util.loginRequired
+                              , util.uidRequired
+                              , util.repoRequired
+                              , util.repoOwnerRequired
+                             ], repo.setting);
+app.get('/:uid/:repo/options', [util.loginRequired
+                              , util.uidRequired
+                              , util.repoRequired
+                              , util.repoOwnerRequired
+                             ], repo.options);
+app.get('/:uid/:repo/collaborators', [util.loginRequired
+                              , util.uidRequired
+                              , util.repoRequired
+                              , util.repoOwnerRequired
+                             ], repo.collaborators);
+app.post('/:uid/:repo/collaborators', [util.loginRequired
+                              , util.uidRequired
+                              , util.repoRequired
+                              , util.repoOwnerRequired
+                             ], repo.add_collaborator);
+app.post('/:uid/:repo/collaborators/delete', [util.loginRequired
+                              , util.uidRequired
+                              , util.repoRequired
+                              , util.repoOwnerRequired
+                             ], repo.del_collaborator);
+app.get('/:uid/:repo.git/:other', [util.uidRequired
+                                  , util.repoRequired
+                                  ], repo.git_clone);
 
 
 http.createServer(app).listen(app.get('port'), function(){
